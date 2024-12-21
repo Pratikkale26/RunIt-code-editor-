@@ -1,13 +1,13 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
-export default defineSchema({
+export default defineSchema ({
     users: defineTable({
         userId: v.string(),
-        email: v.string(),
         name: v.string(),
+        email: v.string(),
         isPro: v.boolean(),
-        proSince: v.optional(v.number()),
+        ProSince: v.optional(v.number()),
         lemonSqueezyCustomerId: v.optional(v.string()),
         lemonSqueezyOrderId: v.optional(v.string()),
     }).index("by_user_id", ["userId"]),
@@ -23,23 +23,24 @@ export default defineSchema({
     snippets: defineTable({
         userId: v.string(),
         title: v.string(),
-        code: v.string(),
         language: v.string(),
-        username: v.string(), // username of the user who created the snippet
+        code: v.string(),
+        userName: v.string(),
     }).index("by_user_id", ["userId"]),
 
-    snippetsComments: defineTable({
+    snippetComments: defineTable({
         snippetId: v.id("snippets"),
         userId: v.string(),
-        username: v.string(),
+        userName: v.string(),
         content: v.string(),
     }).index("by_snippet_id", ["snippetId"]),
 
     stars: defineTable({
-        snippetId: v.id("snippets"),
         userId: v.id("users"),
+        snippetId: v.id("snippets"),
+        starred: v.boolean(),
     })
-    .index("by_snippet_id", ["snippetId"])
     .index("by_user_id", ["userId"])
-    .index("by_user_id_and_snippet_id", ["userId", "snippetId"])
+    .index("by_snippet_id", ["snippetId"])
+    .index("by_user_id_and_snippet_id", ["userId", "snippetId"]),
 })
