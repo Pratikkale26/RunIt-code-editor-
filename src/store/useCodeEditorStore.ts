@@ -9,7 +9,7 @@ const getInitialState = () => {
     // if we are on the server, return the default values
     if(typeof window === "undefined"){
         return {
-            language: "typescript",
+            language: "javascript",
             fontSize: 16,
             theme: "vs-dark",
             output: "",
@@ -22,7 +22,7 @@ const getInitialState = () => {
     }
 
     // if we are on the client, return the saved values (from localStorage)
-    const savedLanguage = localStorage.getItem("editor-language") || "typescript";
+    const savedLanguage = localStorage.getItem("editor-language") || "javascript";
     const savedFontSize = localStorage.getItem("editor-font-size") || "16";
     const savedTheme = localStorage.getItem("editor-theme") || "vs-dark";
 
