@@ -16,7 +16,7 @@ export const saveExecution = mutation({
 
         const user = await ctx.db.query("users")
         .withIndex("by_user_id")
-        .filter((q) => q.eq(q.field("userId"), identity.id)).first();
+        .filter((q) => q.eq(q.field("userId"), identity.subject)).first();
 
         if(!user?.isPro && args.language !== "javascript") {
             throw new ConvexError("You need to be a pro user to use this language");
